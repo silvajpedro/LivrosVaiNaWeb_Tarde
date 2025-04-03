@@ -1,6 +1,6 @@
 import livroProtagonista from '../../assets/livroProtagonista.png'
 import s from './livrosDoados.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 export default function LivrosDoados(){
@@ -12,21 +12,24 @@ export default function LivrosDoados(){
         console.log(resposta)
     }
 
-    puxarLivros()
+    useEffect(()=>{
+        puxarLivros()
+    })
     
     return(
         <section className={s.livrosDoadosSection}>
-            <h2>Livros Doados</h2>
-            <section className={s.containerCards}>
+        <h2>Livros Doados</h2>
+        <section className={s.containerCards}>
+            {livros.map((item) => (
                 <section>
-                    <img src={livroProtagonista} alt="Imagem do livro O Protagonista" />
                     <div>
-                        <h3>O protagonista</h3>
-                        <p>Susanne Andrade</p>
-                        <p>Ficção</p>
+                        <h3>{item.titulo}</h3>
+                        <img src={item.image_url} alt={item.titulo} />
                     </div>
                 </section>
-            </section>
+            ))}
+
         </section>
+    </section>
     )
 }
